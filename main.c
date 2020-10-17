@@ -12,7 +12,7 @@ int main()
 	int create_socket,new_socket;
 	int create_bind;
 	struct sockaddr_in address; 
-	socklen_t addrlen;
+	socklen_t addrlen=100;
 	//create socket
 	if((create_socket=socket(AF_INET,SOCK_STREAM,0))>0)
 	{
@@ -29,17 +29,18 @@ int main()
 	address.sin_family=AF_INET;
 	address.sin_port=htons(8080);
 	address.sin_addr.s_addr=INADDR_ANY;
+	if((create_bind=bind(create_socket,(struct sockaddr *)&address, sizeof(address)))!=0)
+	{
+		fprintf(stdout,"Binding Problem\n");
+		exit(1);
+	}
 	while(1)
 	{
-		if((create_bind=bind(create_socket,(struct sockaddr *)&address, sizeof(address)))!=0)
-		{
-			fprintf(stdout,"Binding Problem\n");
-			exit(1);
-		}
 		if (listen(create_socket,10)==0) {
+			fprintf(stdout,"listening on port 8080\n");
 			if((new_socket=accept(create_socket, (struct sockaddr *)&address,&addrlen))>0)
 			{
-				fprintf(stdout,"Accepted and listening on port 8080\n");
+				fprintf(stdout,"Accepted \n");
 				fflush(stdout);
 			}
 			else
