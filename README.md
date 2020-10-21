@@ -1,4 +1,4 @@
-# simple-Web-server-By-C
+# Simple WebSever By C
 Just Simple webserver using some libraries in ubuntu.
 
 I read http://blog.manula.org/2011/05/writing-simple-web-server-in-c.html and start coding.
